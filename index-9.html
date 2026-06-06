@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D Racing Championship - Nishanth KN</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Three.js library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <!-- Cannon.js physics engine -->
+    <script src="https://cdn.jsdelivr.net/npm/cannon@0.20.0/build/cannon.js"></script>
+</head>
+<body>
+    <!-- 3D Canvas Container -->
+    <div id="gameContainer"></div>
+
+    <!-- HUD (Heads-Up Display) -->
+    <div id="hud">
+        <div id="speedometer" class="hud-element">
+            <span class="label">SPEED</span>
+            <span class="value" id="speedValue">0</span>
+            <span class="unit">km/h</span>
+        </div>
+        
+        <div id="lapTimer" class="hud-element">
+            <span class="label">LAP TIME</span>
+            <span class="value" id="timerValue">00:00:00</span>
+        </div>
+
+        <div id="lapCount" class="hud-element">
+            <span class="label">LAPS</span>
+            <span class="value" id="lapValue">0</span>
+        </div>
+
+        <button id="settingsBtn" class="settings-btn">⚙️ SETTINGS</button>
+    </div>
+
+    <!-- Settings Modal -->
+    <div id="settingsModal" class="modal hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>SETTINGS</h2>
+                <button class="close-btn" id="closeSettings">&times;</button>
+            </div>
+
+            <div class="modal-body">
+                <!-- Audio Settings -->
+                <div class="setting-group">
+                    <label for="audioToggle" class="setting-label">
+                        🔊 Audio
+                    </label>
+                    <div class="toggle-switch">
+                        <input type="checkbox" id="audioToggle" class="toggle-input" checked>
+                        <span class="toggle-slider"></span>
+                    </div>
+                    <span class="toggle-status" id="audioStatus">ON</span>
+                </div>
+
+                <!-- Graphics Quality -->
+                <div class="setting-group">
+                    <label for="graphicsSelect" class="setting-label">
+                        🎮 Graphics Quality
+                    </label>
+                    <select id="graphicsSelect" class="setting-select">
+                        <option value="low">Low (Better Performance)</option>
+                        <option value="high" selected>High (Best Quality)</option>
+                    </select>
+                </div>
+
+                <!-- Sound Effects Volume -->
+                <div class="setting-group">
+                    <label for="volumeSlider" class="setting-label">
+                        🎵 Volume
+                    </label>
+                    <input type="range" id="volumeSlider" class="setting-slider" min="0" max="100" value="70">
+                    <span class="volume-value" id="volumeValue">70%</span>
+                </div>
+
+                <!-- Reset Game -->
+                <div class="setting-group">
+                    <button id="resetGameBtn" class="reset-btn">🔄 RESET GAME</button>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button id="applySettingsBtn" class="apply-btn">APPLY SETTINGS</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tutorial/Info Overlay -->
+    <div id="tutorialOverlay" class="tutorial-overlay">
+        <div class="tutorial-content">
+            <h1>🏁 3D RACING CHAMPIONSHIP</h1>
+            <p class="subtitle">By Nishanth KN</p>
+            
+            <div class="controls-info">
+                <div class="control-item">
+                    <span class="key">↑ W</span> <span class="desc">Accelerate</span>
+                </div>
+                <div class="control-item">
+                    <span class="key">↓ S</span> <span class="desc">Brake</span>
+                </div>
+                <div class="control-item">
+                    <span class="key">← A</span> <span class="desc">Steer Left</span>
+                </div>
+                <div class="control-item">
+                    <span class="key">→ D</span> <span class="desc">Steer Right</span>
+                </div>
+                <div class="control-item">
+                    <span class="key">SPACE</span> <span class="desc">Handbrake/Drift</span>
+                </div>
+            </div>
+
+            <button id="startGameBtn" class="start-btn">START RACE</button>
+        </div>
+    </div>
+
+    <!-- Finish Line Popup -->
+    <div id="finishPopup" class="finish-popup hidden">
+        <div class="finish-content">
+            <h2>🏆 LAP COMPLETED!</h2>
+            <p id="finishTime">Lap Time: 00:00:00</p>
+            <button id="continueBtn" class="continue-btn">CONTINUE</button>
+        </div>
+    </div>
+
+    <!-- Game Script -->
+    <script src="game.js"></script>
+</body>
+</html>
