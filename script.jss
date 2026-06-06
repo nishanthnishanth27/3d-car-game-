@@ -606,3 +606,45 @@ function playFinishSound() {
 }
 
 // ======================
+// ANIMATION LOOP
+// ============================================
+
+function animate() {
+    requestAnimationFrame(animate);
+
+    if (gameRunning) {
+        // Update physics
+        world.step(1 / 60); // 60 FPS physics step
+        
+        // Update game
+        updateCarPhysics();
+        checkFinishLine();
+        updateHUD();
+        updateCamera();
+    }
+
+    // Render scene
+    renderer.render(scene, camera);
+}
+
+// ============================================
+// UTILITY FUNCTIONS
+// ============================================
+
+function onWindowResize() {
+    const width = window.innerWidth;
+    const height = window.innerHeight;
+
+    camera.aspect = width / height;
+    camera.updateProjectionMatrix();
+
+    renderer.setSize(width, height);
+}
+
+// ============================================
+// INITIALIZE GAME ON PAGE LOAD
+// ============================================
+
+window.addEventListener('load', () => {
+    initGame();
+});
